@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Suteu_Razvan_Lab2.Models;
-using Suteu_Razvan_Lab2.Data;
+using Suteu_Razvan_Lab2;
 
 namespace Suteu_Razvan_Lab2.Pages.AuthorPages;
 

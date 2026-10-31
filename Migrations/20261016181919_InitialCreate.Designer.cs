@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Suteu_Razvan_Lab2.Data;
+using Suteu_Razvan_Lab2;
 #nullable disable
 
 namespace Suteu_Razvan_Lab2.Migrations

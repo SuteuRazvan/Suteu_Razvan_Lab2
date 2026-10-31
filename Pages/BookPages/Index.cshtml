@@ -11,14 +11,32 @@
     <a asp-page="Create">Create New</a>
 </p>
 
+<!-- Formularul de căutare (Pașii 11-13) -->
+<form asp-page="./Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Find by Book Title / Author Name:
+            <input type="text" name="SearchString" value="@Model.CurrentFilter" />
+            <input type="submit" value="Search" class="btn btn-primary" /> |
+            <a asp-page="./Index">Back to full List</a>
+        </p>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BookD.Books.First().Title)
+                <!-- Link de sortare pentru Title (Pasul 10) -->
+                <a asp-page="./Index" asp-route-sortOrder="@Model.TitleSort">
+                    @Html.DisplayNameFor(model => model.BookD.Books.First().Title)
+                </a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BookD.Books.First().Author)
+                <!-- Link de sortare pentru Author (Pasul 10) -->
+                <a asp-page="./Index" asp-route-sortOrder="@Model.AuthorSort">
+                    @Html.DisplayNameFor(model => model.BookD.Books.First().Author)
+                </a>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BookD.Books.First().Price)
@@ -46,7 +64,7 @@
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Author)
+                    @item.Author.FullName
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Price)

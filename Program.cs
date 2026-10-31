@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Suteu_Razvan_Lab2.Data;
+using Suteu_Razvan_Lab2;
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("Suteu_Razvan_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Suteu_Razvan_Lab2Context' not found.");
 
