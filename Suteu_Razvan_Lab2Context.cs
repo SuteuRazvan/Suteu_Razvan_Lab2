@@ -7,5 +7,7 @@ public class Suteu_Razvan_Lab2Context(DbContextOptions<Suteu_Razvan_Lab2Context>
     public DbSet<Suteu_Razvan_Lab2.Models.Author> Author { get; set; } = default!;
     public DbSet<Suteu_Razvan_Lab2.Models.Category> Category { get; set; } = default!;
     public DbSet<Suteu_Razvan_Lab2.Models.BookCategory> BookCategory { get; set; } = default!;
+    public DbSet<Suteu_Razvan_Lab2.Models.Member> Member { get; set; } = default!;
+    public DbSet<Suteu_Razvan_Lab2.Models.Borrowing> Borrowing { get; set; } = default!;
 
 }

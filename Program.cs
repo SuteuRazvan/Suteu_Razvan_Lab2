@@ -1,11 +1,25 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Suteu_Razvan_Lab2;
+using Suteu_Razvan_Lab2.Data;
+
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("Suteu_Razvan_Lab2Context") ?? throw new InvalidOperationException("Connection string 'Suteu_Razvan_Lab2Context' not found.");
 
-builder.Services.AddDbContext<Suteu_Razvan_Lab2Context>(options => options.UseSqlServer(connectionString));
+// 1. Conexiunea pentru contextul existent al aplicației (Cărți, Membri, Împrumuturi)
+builder.Services.AddDbContext<Suteu_Razvan_Lab2Context>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Suteu_Razvan_Lab2Context")
+    ?? throw new InvalidOperationException("Connection string 'Suteu_Razvan_Lab2Context' not found.")));
 
-// Add services to the container.
+// 2. Conexiunea pentru contextul Identity (creat la pasul 15)
+builder.Services.AddDbContext<LibraryIdentityContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Suteu_Razvan_Lab2Context")
+    ?? throw new InvalidOperationException("Connection string 'Suteu_Razvan_Lab2Context' not found.")));
+
+// 3. Înregistrarea Identity cu IdentityUser (nu ApplicationUser)
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+    options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<LibraryIdentityContext>();
+
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
@@ -14,18 +28,17 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapStaticAssets();
-app.MapRazorPages()
-   .WithStaticAssets();
+app.MapRazorPages();
 
 app.Run();
