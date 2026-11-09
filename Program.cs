@@ -18,9 +18,23 @@ builder.Services.AddDbContext<LibraryIdentityContext>(options =>
 // 3. Înregistrarea Identity cu IdentityUser (nu ApplicationUser)
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<LibraryIdentityContext>();
+builder.Services.AddAuthorization(options => 
+{ 
+    options.AddPolicy("AdminPolicy", policy =>
+    policy.RequireRole("Admin"));
+});
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/BookPages");
+    options.Conventions.AllowAnonymousToPage("/BookPages/Index"); 
+    options.Conventions.AllowAnonymousToPage("/BookPages/Details");
+    options.Conventions.AuthorizeFolder("/MemberPages", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/PublisherPages", "AdminPolicy");
+    options.Conventions.AuthorizeFolder("/CategoryPages", "AdminPolicy");
+});
 
 var app = builder.Build();
 

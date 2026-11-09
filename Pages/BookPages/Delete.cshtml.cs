@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using Suteu_Razvan_Lab2.Models;
 using Suteu_Razvan_Lab2;
+using Suteu_Razvan_Lab2.Models;
 
 namespace Suteu_Razvan_Lab2.Pages.BookPages;
 
+[Authorize(Roles = "Admin")]
 public class DeleteModel : PageModel
 {
     private readonly Suteu_Razvan_Lab2Context _context;
